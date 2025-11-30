@@ -1,43 +1,128 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="id">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>QR Scanner — Mockup</title>
-  <link rel="stylesheet" href="qr-code-style.css" />
-</head>
-<body>
-  <header class="topbar">
-    <button class="back">◀</button>
-    <h1>QR SCANNER</h1>
-  </header>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>QR Scanner</title>
+    <link rel="stylesheet" href="qr-code-style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/jsqr/dist/jsQR.js"></script>
+  </head>
+  <body>
+    <header class="topbar">
+      <button class="back"><</button>
+      <h1>QR SCANNER</h1>
+    </header>
 
-  <main class="viewport">
-    <!-- area kamera / gambar -->
-    <div class="camera-view" aria-hidden="true">
-      <!-- untuk sekarang area ini berwarna abu-kehitaman seperti permintaan -->
-      <div class="frame-overlay"></div>
+    <main class="viewport">
+      <div class="camera-view">
+        <video id="video" playsinline></video>
+        <canvas id="canvas" hidden></canvas>
+        <div class="frame-overlay"></div>
+      </div>
+      <p id="output"></p>
+    </main>
+
+    <div class="controls">
+      <div class="control-inner">
+        <button class="action" id="flashBtn">
+          <svg viewBox="0 0 24 24" width="28" height="28">
+            <path
+              fill="none"
+              stroke="#fff"
+              stroke-width="1.6"
+              d="M13 2 L3 14 H11 L11 22 L21 10 H13 Z"
+            />
+          </svg>
+        </button>
+
+        <button class="action" id="rotateBtn">
+          <svg viewBox="0 0 24 24" width="28" height="28">
+            <path
+              fill="none"
+              stroke="#fff"
+              stroke-width="1.6"
+              d="M21 12a9 9 0 1 0-2.1 5.6M21 7v5h-5"
+            />
+          </svg>
+        </button>
+      </div>
     </div>
-  </main>
 
-  <div class="controls">
-    <div class="control-inner">
-      <button class="action">
-        <!-- lightning icon -->
-        <svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true">
-          <path fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="M13 2 L3 14 H11 L11 22 L21 10 H13 Z" />
-        </svg>
-      </button>
+    <script>
+      const backBtn = document.querySelector(".back");
+      const video = document.getElementById("video");
+      const canvas = document.getElementById("canvas");
+      const ctx = canvas.getContext("2d");
+      const output = document.getElementById("output");
+      const flashBtn = document.getElementById("flashBtn");
+      const rotateBtn = document.getElementById("rotateBtn");
 
-      <button class="action">
-        <!-- rotate/camera icon -->
-        <svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true">
-          <path fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="M21 12a9 9 0 1 0-2.1 5.6M21 7v5h-5" />
-          <circle cx="12" cy="12" r="2.2" fill="#fff" opacity="0.0" />
-        </svg>
-      </button>
-    </div>
-  </div>
+      let stream;
+      let cameraMode = "environment";
+      let flashState = false;
+      let track;
 
-</body>
+      // tombol BACK
+      backBtn.addEventListener("click", () => {
+        window.location.href = "index.html";
+      });
+
+      // toggle flash (jika didukung perangkat)
+      flashBtn.addEventListener("click", () => {
+        if (track && track.getCapabilities().torch) {
+          flashState = !flashState;
+          track
+            .applyConstraints({ advanced: [{ torch: flashState }] })
+            .catch(() => {});
+        }
+      });
+
+      // rotate camera
+      rotateBtn.addEventListener("click", () => {
+        cameraMode = cameraMode === "environment" ? "user" : "environment";
+        startCamera();
+      });
+
+      async function startCamera() {
+        if (stream) stream.getTracks().forEach((t) => t.stop());
+
+        try {
+          stream = await navigator.mediaDevices.getUserMedia({
+            video: { facingMode: cameraMode },
+          });
+
+          track = stream.getVideoTracks()[0];
+          video.srcObject = stream;
+          await video.play();
+
+          tick();
+          scan();
+        } catch {
+          // jika gagal, diam saja
+        }
+      }
+
+      function tick() {
+        if (video.readyState === video.HAVE_ENOUGH_DATA) {
+          canvas.width = video.videoWidth;
+          canvas.height = video.videoHeight;
+          ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+        }
+        requestAnimationFrame(tick);
+      }
+
+      function scan() {
+        if (canvas.width && canvas.height) {
+          const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+          const qr = jsQR(imgData.data, canvas.width, canvas.height);
+          if (qr) {
+            output.innerText = qr.data;
+          }
+        }
+        setTimeout(scan, 300);
+      }
+
+      startCamera();
+    </script>
+  </body>
 </html>

@@ -1,71 +1,112 @@
-
-:root{
-  --blue:#2f93d0;
-  --deep-blue:#2076b3;
+:root {
+  --blue: #2f93d0;
+  --deep-blue: #2076b3;
   --white: #ffffff;
 }
-*{box-sizing:border-box}
-html,body{height:100%;margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:#222}
-
-.topbar{
-  background:var(--blue);
-  color:var(--white);
-  height:64px;
-  display:flex;
-  align-items:center;
-  gap:12px;
-  padding:0 18px;
+* {
+  box-sizing: border-box;
 }
-.topbar h1{font-size:20px;margin:0;font-weight:600;letter-spacing:1px}
-.topbar .back{
-  background:transparent;border:0;color:inherit;font-size:20px;padding:6px 8px;cursor:pointer
+html,
+body {
+  height: 100%;
+  margin: 0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial,
+    sans-serif;
+  color: #222;
 }
 
-.viewport{
-  height:calc(100vh - 64px); /* full below the topbar */
-  background:transparent;
-  display:flex;align-items:stretch;justify-content:center;overflow:hidden;position:relative;
+.topbar {
+  background: var(--blue);
+  color: var(--white);
+  height: 64px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 18px;
+}
+.topbar h1 {
+  font-size: 20px;
+  margin: 0;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+.topbar .back {
+  background: transparent;
+  border: 0;
+  color: inherit;
+  font-size: 20px;
+  padding: 6px 8px;
+  cursor: pointer;
 }
 
-.camera-view{
-  flex:1;
+.viewport {
+  height: calc(100vh - 64px); /* full below the topbar */
+  background: transparent;
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+}
+
+.camera-view {
+  flex: 1;
   /* sesuai permintaan: area gambar diganti abu-kehitaman */
-  background: linear-gradient(180deg,#3a3a3a 0%, #1f1f1f 100%);
-  display:block;
-  min-height:320px;
-  position:relative;
+  background: linear-gradient(180deg, #3a3a3a 0%, #1f1f1f 100%);
+  display: block;
+  min-height: 320px;
+  position: relative;
 }
 
-.frame-overlay{
-  position:absolute;inset:0;mix-blend-mode:multiply;opacity:0.06;
-  background-image: repeating-linear-gradient(45deg, rgba(255,255,255,0.02) 0 2px, transparent 2px 6px);
+.frame-overlay {
+  position: absolute;
+  inset: 0;
+  mix-blend-mode: multiply;
+  opacity: 0.06;
+  background-image: repeating-linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.02) 0 2px,
+    transparent 2px 6px
+  );
 }
 
 /* Controls now float over viewport with transparent background so they "melayang" */
-.controls{
-  position:fixed;
-  left:0;right:0;
-  bottom:22px;
-  display:flex;align-items:center;justify-content:center;padding:0 18px;pointer-events:none;
+.controls {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: px;
+  pointer-events: none;
 }
-.control-inner{
-  pointer-events:auto; /* enable clicks on buttons */
-  background: rgba(255,255,255,0.04); /* subtle translucent surface over the camera */
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-  border-radius:22px;
-  padding:12px 18px;
-  box-shadow:0 14px 30px rgba(0,0,0,0.35);
-  display:flex;gap:18px;align-items:center;max-width:540px;width:calc(100% - 48px);
-}
-.action{
-  border:0; background:linear-gradient(180deg,var(--blue),var(--deep-blue));
-  width:120px;height:56px;border-radius:14px;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 6px 12px rgba(0,0,0,0.12);
-}
-.action svg{display:block}
+.control-inner {
+  pointer-events: auto; /* enable clicks on buttons */
+  background: rgb(
+    255,
+    255,
+    255
+  ); /* subtle translucent surface over the camera */
 
-/* responsive tweaks */
-@media(min-width:720px){
-  .action{width:140px;height:64px}
-  .control-inner{padding:16px 22px}
+  border-radius: 22px;
+  padding: 12px 12px;
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.35);
+  display: flex;
+  gap: 18px;
+  align-items: center;
+}
+
+.action {
+  border: 0;
+  background: linear-gradient(180deg, var(--blue), var(--deep-blue));
+  width: 120px;
+  height: 56px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.12);
 }
