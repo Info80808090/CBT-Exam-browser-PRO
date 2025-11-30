@@ -1,40 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>CBT Exam Browser</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <div class="container">
-        <header>
-            <div class="logo-block">
-                <div class="logo-icon"></div>
-                <div class="logo-text">
-                    <h1>CBT Exam Browser</h1>
-                    <span class="version">v 6.6</span>
-                </div>
-            </div>
-        </header>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="screen">
+      <header>
+        <div class="logo-title">
+          <img src="assets/cbt_icon.webp" class="logo-icon" />
 
-        <main>
-            <div class="grid">
-                <a class="card" href="#"><div class="icon http"></div><p>Input URL</p></a>
-                <a class="card" href="#"><div class="icon qr"></div><p>Scan QR</p></a>
-                <a class="card" href="#"><div class="icon folder"></div><p>Open Config</p></a>
-                <a class="card" href="#"><div class="icon config"></div><p>Create Config</p></a>
-            </div>
-        </main>
+          <div class="title-text">
+            <h1>CBT Exam Browser</h1>
+            <span>v6.6</span>
+          </div>
+        </div>
+      </header>
+      <main class="main-grid">
+        <a class="item" href="#">
+          <img src="https://www.svgrepo.com/show/488040/link.svg" />
+          <p>Input URL</p>
+        </a>
+        <a class="item" href="#">
+          <img src="https://www.svgrepo.com/show/532540/qr.svg" />
+          <p>Scan QR</p>
+        </a>
+        <a class="item" href="#">
+          <img src="https://www.svgrepo.com/show/521602/folder-open.svg" />
+          <p>Open Config</p>
+        </a>
+        <a class="item" href="#">
+          <img src="https://www.svgrepo.com/show/489021/settings.svg" />
+          <p>Create Config</p>
+        </a>
+      </main>
 
-        <footer>
-            <div class="footer-grid">
-                <a href="#"><div class="footer-icon about"></div><p>About</p></a>
-                <a href="#"><div class="footer-icon rate"></div><p>Rate</p></a>
-                <a href="#"><div class="footer-icon share"></div><p>Share</p></a>
-                <a href="#"><div class="footer-icon ua"></div><p>Ua</p></a>
-            </div>
-        </footer>
+      <footer class="footer">
+        <a href="#"
+          ><img src="https://www.svgrepo.com/show/500716/info.svg" />
+          <p>About</p></a
+        >
+        <a href="#"
+          ><img src="https://www.svgrepo.com/show/477054/star.svg" />
+          <p>Rate</p></a
+        >
+        <a href="#"
+          ><img src="https://www.svgrepo.com/show/530498/share.svg" />
+          <p>Share</p></a
+        >
+        <a href="#"
+          ><img src="https://www.svgrepo.com/show/488066/browser.svg" />
+          <p>UA</p></a
+        >
+      </footer>
     </div>
-</body>
+  </body>
 </html>
