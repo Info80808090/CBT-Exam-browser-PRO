@@ -1,12 +1,12 @@
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background: linear-gradient(#1e88e5, #bbdefb);
-  height: 100pv;
+  background: linear-gradient(#257dc0, #fbfcfe);
+  height: 100vh;
+  min-height: 100vh;
   display: flex;
   justify-content: center;
 }
-
 
 .logo-title {
   display: flex;
@@ -22,6 +22,14 @@ body {
 
 header {
   margin-top: 195px;
+}
+
+.title-text > h1 {
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.671);
+}
+
+.title-text > span {
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.466);
 }
 
 .title-text {
@@ -47,7 +55,7 @@ header {
   margin-top: 10px;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 24px;
+  gap: 15px;
 }
 
 .item {
@@ -57,7 +65,7 @@ header {
   text-align: center;
   text-decoration: none;
   color: #0a0a0a;
-  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.397);
 }
 
 .item img {
@@ -79,7 +87,7 @@ header {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   text-align: center;
-  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.397);
 }
 
 .footer img {
